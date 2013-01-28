@@ -87,4 +87,16 @@ autocmd FileType python set omnifunc=pythoncomplete#Complete
 "vim-django-support
 NeoBundle 'http://github.com/lambdalisue/vim-django-support.git'
 
+"Simple-Javascript-Indenter
+NeoBundle 'http://github.com/jiangmiao/simple-javascript-indenter.git'
+let g:SimpleJsIndenter_BriefMode = 1
+let g:SimpleJsIndenter_CaseIndentLevel = -1
+
+"vim-javascript-syntax
+NeoBundle 'http://github.com/jelera/vim-javascript-syntax.git'
+
+"jscomplete-vim
+NeoBundle 'http://github.com/teramako/jscomplete-vim.git'
+let g:jscomplete_use = ['dom', 'moz', 'es6th']
+
 filetype plugin indent on
