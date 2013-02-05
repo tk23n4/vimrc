@@ -3,6 +3,10 @@ autocmd FileType python setl autoindent  "オートインデント有効化
 autocmd FileType python setl smartindent "スマートインデント有効化
 autocmd FileType python setl cinwords=if,elif,else,for,while,try,except,finally,def,class "該当するワード時に自動的にインデント
 
+"javascritp用設定
+autocmd FileType javascript setlocal omnifunc=nodejscomplete#CompleteJS
+
+
 "タブ設定
 set expandtab      "タブを半角空白として設定
 set tabstop=8      "タブを半角スペース8文字として表示(pythonのインタプリタはタブ文字を8文字として扱う為)
@@ -98,5 +102,13 @@ NeoBundle 'http://github.com/jelera/vim-javascript-syntax.git'
 "jscomplete-vim
 NeoBundle 'http://github.com/teramako/jscomplete-vim.git'
 let g:jscomplete_use = ['dom', 'moz', 'es6th']
+
+"jscomplete-vim
+NeoBundle 'http://github.com/myhere/vim-nodejs-complete.git'
+if !exists('g:neocomplcache_omni_functions')
+  let g:neocomplcache_omni_functions = {}
+endif
+let g:neocomplcache_omni_functions.javascript = 'nodejscomplete#CompleteJS'
+let g:node_usejscomplete = 1
 
 filetype plugin indent on
