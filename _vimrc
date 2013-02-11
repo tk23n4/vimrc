@@ -163,11 +163,11 @@ vmap <Leader>al :Alignt<Space>
 
 "calendar-vim
 NeoBundle 'http://github.com/mattn/calendar-vim.git'
-nmap <Leader>ma :Calendar<CR>
+nmap <Leader>ca :Calendar<CR>
 
 "vim-smartchr
 NeoBundle 'http://github.com/kana/vim-smartchr.git'
-imap <expr> = smartchr#loop(' = ','=',' == ')
+inoremap <buffer> <expr> = smartchr#loop(' = ', ' == ', '=')
 
 "zencoding-vim
 NeoBundle 'http://github.com/mattn/zencoding-vim.git'
