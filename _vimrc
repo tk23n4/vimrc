@@ -99,6 +99,13 @@ NeoBundle 'http://github.com/nathanaelkane/vim-indent-guides.git'
 let g:indent_guides_enable_on_vim_startup=1
 let g:indent_guides_color_change_percent=30
 let g:indent_guides_guide_size=1
+if has('win32') || has('win64')
+	let g:indent_guides_auto_colors = 1
+else
+	let g:indent_guides_auto_colors = 0
+	autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd   ctermbg=lightgray
+	autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  ctermbg=gray
+endif
 
 "ref
 NeoBundle 'http://github.com/thinca/vim-ref.git'
@@ -167,9 +174,12 @@ nmap <Leader>ca :Calendar<CR>
 
 "vim-smartchr
 NeoBundle 'http://github.com/kana/vim-smartchr.git'
-inoremap <buffer> <expr> = smartchr#loop(' = ', ' == ', '=')
+inoremap <buffer> <expr> = smartchr#loop('=',' = ', '==', ' == ')
 
 "zencoding-vim
 NeoBundle 'http://github.com/mattn/zencoding-vim.git'
+let g:user_zen_settings = {
+\  'lang' : 'ja',
+\}
 
 filetype plugin indent on
