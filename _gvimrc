@@ -53,8 +53,13 @@ set virtualedit=block
 set nocompatible
 filetype off
 if has('vim_starting')
-  set runtimepath+=$HOME/vimfiles/bundle/neobundle.vim
-  call neobundle#rc(expand('$HOME/vimfiles/bundle'))
+    if has('win32') || has('win64')
+        set runtimepath+=$HOME/vimfiles/bundle/neobundle.vim
+        call neobundle#rc(expand('$HOME/vimfiles/bundle'))
+    else
+        set runtimepath+=~/.vim/bundle/neobundle.vim
+        call neobundle#rc(expand('~/.vim/bundle'))
+    endif
 endif
 
 "quickrun
