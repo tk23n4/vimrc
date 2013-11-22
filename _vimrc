@@ -6,6 +6,18 @@ autocmd FileType python setl cinwords=if,elif,else,for,while,try,except,finally,
 "javascritp用設定
 autocmd FileType javascript setlocal omnifunc=nodejscomplete#CompleteJS
 
+"勝手にコメントアウトしない様に対応
+autocmd FileType * setlocal formatoptions-=ro
+
+" make, grep などのコマンド後に自動的にQuickFixを開く
+autocmd  QuickfixCmdPost make,grep,grepadd,vimgrep copen
+
+" QuickFixおよびHelpでは q でバッファを閉じる
+autocmd  FileType help,qf nnoremap <buffer> q <C-w>c
+
+"jedi用の設定
+autocmd FileType python setlocal omnifunc=jedi#complete
+
 
 "タブ設定
 set expandtab      "タブを半角空白として設定
@@ -21,10 +33,13 @@ syntax enable              "シンタックスハイライト
 set encoding=utf-8
 set fileencodings=utf-8,cp932,euc-jp
 
-"行数設定
-set number
+"表示設定
+set number      "行数設定
+set nowrap       "折り返し無し
+set textwidth=0 "自動的に改行が入るのを無効化
 
 "バックアップファイル設定
+set nowritebackup
 set nobackup
 set noswapfile
 
@@ -42,12 +57,19 @@ endif
 "クリップボード設定
 set clipboard=unnamed
 
-"検索ハイライト削除
-nmap <Leader>nh :nohlsearch<CR>
+"検索関連
+set incsearch "インクリメンタルサーチ
+set hlsearch  "検索ハイライト
+nmap <Leader>nh :nohlsearch<CR> "検索ハイライト削除 
 
 "矩形選択設定
-set virtualedit=block
+set virtualedit=block 
 
+" Ctrl + hjkl でウィンドウ間を移動
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 "NeoBundle設定
 set nocompatible
@@ -71,7 +93,7 @@ let g:quickrun_config["_"] = {'into':1}
 NeoBundle 'http://github.com/Shougo/vimfiler.git'
 let g:vimfiler_as_default_explorer=1
 let g:vimfiler_safe_mode_by_default=0
-nnoremap <F9> :VimFiler -buffer-name=explorer -split -winwidth=30 -no-quit<CR>
+nnoremap <F9> :VimFiler -split -no-quit -simple -status -winwidth=30<CR>
 autocmd! FileType vimfiler call g:my_vimfiler_settings()
 function! g:my_vimfiler_settings()
   nmap <buffer><expr><CR> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
@@ -177,14 +199,46 @@ vmap <Leader>al :Alignt<Space>
 NeoBundle 'http://github.com/mattn/calendar-vim.git'
 nmap <Leader>ca :Calendar<CR>
 
-"vim-smartchr
-NeoBundle 'http://github.com/kana/vim-smartchr.git'
-inoremap <buffer> <expr> = smartchr#loop('=',' = ', '==', ' == ')
+""vim-smartchr
+"NeoBundle 'http://github.com/kana/vim-smartchr.git'
+"inoremap <buffer> <expr> = smartchr#loop('=',' = ', '==', ' == ')
 
 "zencoding-vim
 NeoBundle 'http://github.com/mattn/zencoding-vim.git'
 let g:user_zen_settings = {
 \  'lang' : 'ja',
 \}
+
+"vim-submode
+if $USER == 'hatakazu'
+    NeoBundle 'kana/vim-submode'
+    call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
+    call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
+    call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>-')
+    call submode#enter_with('winsize', 'n', '', '<C-w>-', '<C-w>+')
+    call submode#map('winsize', 'n', '', '>', '<C-w>>')
+    call submode#map('winsize', 'n', '', '<', '<C-w><')
+    call submode#map('winsize', 'n', '', '+', '<C-w>-')
+    call submode#map('winsize', 'n', '', '-', '<C-w>+')
+endif
+
+"YankRing
+NeoBundle 'vim-scripts/YankRing.vim'
+let g:yankring_history_dir = $HOME.'/.vim/'
+let g:yankring_history_file = '.yankring_history'
+
+"vim-virtualenv
+NeoBundle 'jmcantrell/vim-virtualenv'
+let g:virtualenv_directory = '/home/hatakazu/python'
+
+"jedi-vim
+NeoBundle 'davidhalter/jedi-vim'
+let g:jedi#auto_vim_configuration = 0   " 自動設定機能をOFFにし手動で設定を行う
+let g:jedi#popup_select_first = 0       " 補完の最初の項目が選択された状態だと使いにくいためオフにする
+let g:jedi#rename_command = '<Leader>R' " quickrunと被るため大文字に変更
+if !exists('g:neocomplcache_force_omni_patterns')
+    let g:neocomplcache_force_omni_patterns = {}
+endif
+let g:neocomplcache_force_omni_patterns.python = '\h\w*\|[^. \t]\.\w*'
 
 filetype plugin indent on
