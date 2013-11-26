@@ -16,7 +16,7 @@ autocmd  QuickfixCmdPost make,grep,grepadd,vimgrep copen
 autocmd  FileType help,qf nnoremap <buffer> q <C-w>c
 
 "jedi用の設定
-autocmd FileType python setlocal omnifunc=jedi#complete
+"autocmd FileType python setlocal omnifunc=jedi#complete
 
 
 "タブ設定
@@ -240,6 +240,7 @@ endif
 
 "jedi-vim
 NeoBundle 'davidhalter/jedi-vim'
+let g:jedi#auto_initialization = 0
 let g:jedi#auto_vim_configuration = 0   " 自動設定機能をOFFにし手動で設定を行う
 let g:jedi#popup_select_first = 0       " 補完の最初の項目が選択された状態だと使いにくいためオフにする
 let g:jedi#rename_command = '<Leader>R' " quickrunと被るため大文字に変更
