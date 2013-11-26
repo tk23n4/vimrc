@@ -78,6 +78,9 @@ if has('vim_starting')
     if has('win32') || has('win64')
         set runtimepath+=$HOME/vimfiles/bundle/neobundle.vim
         call neobundle#rc(expand('$HOME/vimfiles/bundle'))
+    elseif has('mac')
+        set runtimepath+=/Users/hatakazu/.vim/bundle/neobundle.vim
+        call neobundle#rc(expand('~/.vim/bundle'))
     else
         set runtimepath+=/home/hatakazu/.vim/bundle/neobundle.vim
         call neobundle#rc(expand('~/.vim/bundle'))
@@ -126,7 +129,7 @@ NeoBundle 'http://github.com/nathanaelkane/vim-indent-guides.git'
 let g:indent_guides_enable_on_vim_startup=1
 let g:indent_guides_color_change_percent=30
 let g:indent_guides_guide_size=1
-if has('win32') || has('win64')
+if has('win32') || has('win64') || has('mac')
 	let g:indent_guides_auto_colors = 1
 else
 	let g:indent_guides_auto_colors = 0
@@ -162,8 +165,8 @@ NeoBundle 'http://github.com/Shougo/neocomplcache.git'
 let g:neocomplcache_enable_at_startup = 1 " 起動時に有効化
 
 "pythoncomplete
-NeoBundle 'http://github.com/vim-scripts/pythoncomplete.git'
-autocmd FileType python set omnifunc=pythoncomplete#Complete
+"NeoBundle 'http://github.com/vim-scripts/pythoncomplete.git'
+"autocmd FileType python set omnifunc=pythoncomplete#Complete
 
 "vim-django-support
 NeoBundle 'http://github.com/lambdalisue/vim-django-support.git'
@@ -180,7 +183,7 @@ NeoBundle 'http://github.com/jelera/vim-javascript-syntax.git'
 NeoBundle 'http://github.com/teramako/jscomplete-vim.git'
 let g:jscomplete_use = ['dom', 'moz', 'es6th']
 
-"jscomplete-vim
+"vim-nodejs-complete
 NeoBundle 'http://github.com/myhere/vim-nodejs-complete.git'
 if !exists('g:neocomplcache_omni_functions')
   let g:neocomplcache_omni_functions = {}
@@ -229,7 +232,11 @@ let g:yankring_history_file = '.yankring_history'
 
 "vim-virtualenv
 NeoBundle 'jmcantrell/vim-virtualenv'
-let g:virtualenv_directory = '/home/hatakazu/python'
+if has('mac')
+    let g:virtualenv_directory = '/Users/hatakazu/python'
+else
+    let g:virtualenv_directory = '/home/hatakazu/python'
+endif
 
 "jedi-vim
 NeoBundle 'davidhalter/jedi-vim'
