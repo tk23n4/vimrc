@@ -16,8 +16,7 @@ autocmd  QuickfixCmdPost make,grep,grepadd,vimgrep copen
 autocmd  FileType help,qf nnoremap <buffer> q <C-w>c
 
 "jedi用の設定
-"autocmd FileType python setlocal omnifunc=jedi#complete
-
+autocmd FileType python setlocal omnifunc=jedi#complete
 
 "タブ設定
 set expandtab      "タブを半角空白として設定
@@ -129,7 +128,9 @@ NeoBundle 'http://github.com/nathanaelkane/vim-indent-guides.git'
 let g:indent_guides_enable_on_vim_startup=1
 let g:indent_guides_color_change_percent=30
 let g:indent_guides_guide_size=1
-if has('win32') || has('win64') || has('mac')
+"if has('win32') || has('win64') || has('mac')
+if has('win32') || has('win64')
+
 	let g:indent_guides_auto_colors = 1
 else
 	let g:indent_guides_auto_colors = 0
@@ -163,6 +164,10 @@ let g:github_token='1073e24d7f4d29c2c39c9812fa345dc4'
 "neocomplecache
 NeoBundle 'http://github.com/Shougo/neocomplcache.git'
 let g:neocomplcache_enable_at_startup = 1 " 起動時に有効化
+if !exists('g:neocomplcache_omni_functions')
+    let g:neocomplcache_omni_functions = {}
+endif
+let g:neocomplcache_omni_functions['python'] = 'jedi#completions'
 
 "pythoncomplete
 "NeoBundle 'http://github.com/vim-scripts/pythoncomplete.git'
