@@ -249,6 +249,7 @@ let g:jedi#auto_initialization = 0
 let g:jedi#auto_vim_configuration = 0   " 自動設定機能をOFFにし手動で設定を行う
 let g:jedi#popup_select_first = 0       " 補完の最初の項目が選択された状態だと使いにくいためオフにする
 let g:jedi#rename_command = '<Leader>R' " quickrunと被るため大文字に変更
+let g:jedi#show_call_signatures = 0     "ポップアップヒントを表示させない
 if !exists('g:neocomplcache_force_omni_patterns')
     let g:neocomplcache_force_omni_patterns = {}
 endif
